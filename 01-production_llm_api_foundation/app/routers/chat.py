@@ -17,7 +17,7 @@ def get_llm_service() -> LLMService:
 
 class ChatRequest(BaseModel):
     prompt: str
-    provider: str = "openrouter"  # openrouter | gemini
+    provider: str = "gemini"  # gemini | openrouter
     model: str | None = None
 
 
@@ -32,12 +32,19 @@ def chat(req: ChatRequest) -> ChatResponse:
     settings = get_settings()
     svc = get_llm_service()
     model = req.model or (
-        settings.default_openrouter_model if req.provider == "openrouter" else settings.default_gemini_model
+        settings.default_gemini_model if req.provider == "gemini" else settings.default_openrouter_model
     )
-    if req.provider == "openrouter":
-        text = svc.complete_openrouter(req.prompt, model)
-    elif req.provider == "gemini":
-        text = svc.complete_gemini(req.prompt, model)
-    else:
-        raise HTTPException(422, detail="provider must be openrouter or gemini")
+    try:
+        if req.provider == "gemini":
+            text = svc.complete_gemini(req.prompt, model)
+        elif req.provider == "openrouter":
+            text = svc.complete_openrouter(req.prompt, model)
+        else:
+            raise HTTPException(422, detail="provider must be gemini or openrouter")
+    except ValueError as e:
+        raise HTTPException(503, detail=str(e))
+    except Exception as e:
+        if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e) or "quota" in str(e).lower():
+            raise HTTPException(503, detail="Provider rate limit or quota exceeded. Try again later or use openrouter.")
+        raise HTTPException(503, detail=str(e))
     return ChatResponse(text=text, provider=req.provider, model=model)
