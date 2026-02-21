@@ -2,6 +2,9 @@
 
 One production-quality GenAI project per day. Single repo, one subdirectory per project.
 
+**First-time push:** Create an empty repo `genai-daily` on GitHub, then from this directory:  
+`git remote add origin https://github.com/kirandapkar/genai-daily.git && git push -u origin main`
+
 | # | Project | Status |
 |---|---------|--------|
 | 01 | [production_llm_api_foundation](01-production_llm_api_foundation/) | Done |
