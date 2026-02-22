@@ -8,6 +8,7 @@ One production-quality GenAI project per day. Single repo, one subdirectory per 
 | # | Project | Status |
 |---|---------|--------|
 | 01 | [production_llm_api_foundation](01-production_llm_api_foundation/) | Done |
+| 02 | [llm_api_with_rate_limit_and_cost_tracking](02-llm_api_with_rate_limit_and_cost_tracking/) | Done |
 
 ## Setup
 
