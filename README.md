@@ -11,6 +11,7 @@ One production-quality GenAI project per day. Single repo, one subdirectory per 
 | 02 | [llm_api_with_rate_limit_and_cost_tracking](02-llm_api_with_rate_limit_and_cost_tracking/) | Done |
 | 03 | [llm_api_multi_model_router](03-llm_api_multi_model_router/) | Done |
 | 04 | [single_document_rag_system](04-single_document_rag_system/) | Done |
+| 05 | [multi_document_rag_with_metadata_filter](05-multi_document_rag_with_metadata_filter/) | Done |
 
 ## Setup
 
